@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mummy Papa Birthday Surprise</title>
+    <style>
+        /* Cute aur Stylish Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Pacifico&family=Quicksand:wght@700&display=swap');
+
+        body, html { 
+            margin: 0; padding: 0; min-height: 100vh; 
+            font-family: 'Quicksand', sans-serif; 
+            overflow-x: hidden; 
+            background: #ffe4ea; /* Soft Pink Background for all pages */
+        }
+        
+        /* Light Flower Petals Effect (Halka aur Sundar) */
+        .falling { 
+            position: fixed; pointer-events: none; z-index: 1000; 
+            animation: fall linear infinite; opacity: 0.5; 
+        }
+        @keyframes fall { 
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); } 
+        }
+
+        .section { display: none; text-align: center; width: 100%; min-height: 100vh; padding: 20px; box-sizing: border-box; flex-direction: column; align-items: center; justify-content: center; }
+        .active { display: flex; animation: fadeIn 1.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Page 1: Initial Heart */
+        .heart-btn { font-size: 100px; cursor: pointer; animation: heartbeat 1.2s infinite; user-select: none; z-index: 10; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+        .cute-title { 
+            font-family: 'Cherry Bomb One', cursive; font-size: 3rem; 
+            color: #ff5e78; text-shadow: 2px 2px 0px #fff; margin-bottom: 20px;
+        }
+
+        .side-photos { display: flex; gap: 15px; margin-top: 10px; }
+        .side-photos img { width: 130px; height: 170px; object-fit: cover; border: 5px solid white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* Memory Cards Section */
+        .card-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; width: 100%; max-width: 400px; }
+        .memory-card { 
+            background: white; padding: 12px; border-radius: 12px; 
+            font-weight: bold; color: #ff5e78; cursor: pointer; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05); 
+        }
+        .memory-card img { display: none; width: 100%; margin-top: 8px; border-radius: 10px; }
+
+        /* Hindi Shayari Section */
+        .shayari-hindi { 
+            color: #8b0000; font-size: 1.5rem; font-weight: 800; 
+            margin-top: 25px; max-width: 90%; line-height: 1.4; 
+        }
+
+        /* Video Section */
+        .lavender-cute { 
+            color: #967bb6; font-family: 'Pacifico', cursive; 
+            font-size: 1.6rem; margin-top: 15px; padding: 0 10px;
+        }
+
+        /* Note Page */
+        .lining-paper { 
+            background: #fff9fb; 
+            background-image: repeating-linear-gradient(transparent, transparent 29px, #ffd1dc 30px); 
+            padding: 30px; width: 85%; max-width: 500px; 
+            color: #333; font-weight: bold; font-size: 1.1rem; 
+            text-align: left; line-height: 30px; border: 2px solid #ffb6c1; border-radius: 12px;
+        }
+
+        /* Last Page */
+        .thanks-cute { font-family: 'Cherry Bomb One', cursive; font-size: 4.5rem; color: #ff5e78; margin: 0; }
+        .daughters-name { font-family: 'Pacifico', cursive; color: #4299e1; font-size: 2.2rem; margin-top: 5px; }
+
+        .btn-cute { 
+            background: #ff5e78; color: white; border: none; 
+            padding: 12px 28px; border-radius: 20px; cursor: pointer; 
+            margin-top: 20px; font-weight: bold; font-size: 1rem;
+        }
+        .btn-end { background: #555; color: white; border: none; padding: 8px 20px; border-radius: 15px; cursor: pointer; margin-top: 30px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+   <div id="p1" class="section active">
+        <div id="instruction-wrap" style="text-align: center;">
+            <p id="top-text" style="color: black; font-weight: 800; font-size: 1.5rem; margin-bottom: 10px;">SURPRISE IN THIS HEART</p>
+            
+            <div id="heart-wrap" class="heart-btn" onclick="startSurprise()">❤️</div>
+            
+            <p id="bottom-text" style="color: black; font-weight: 800; font-size: 1.2rem; margin-top: 10px;">TAP TO THIS HEART</p>
+        </div>
+
+        <div id="wish-area" style="display:none">
+            <h1 class="cute-title">HAPPY BIRTHDAY <br> MAMMA AND PAPA</h1>
+            <div class="side-photos">
+                <img src="mummy.jpg" alt="Mummy">
+                <img src="papa.jpg" alt="Papa">
+            </div>
+            <button class="btn-cute" onclick="go(2)">Memory ⮕</button>
+        </div>
+    </div>
+
+    <div id="p2" class="section">
+        <h2 style="color:#ff5e78; font-family:'Pacifico'">Our Sweet Memories</h2>
+        <div class="card-container">
+            <div class="memory-card" onclick="showM(this)">Memory 1 <img src="photo1.jpg"></div>
+            <div class="memory-card" onclick="showM(this)">Memory 2 <img src="photo2.jpg"></div>
+            <div class="memory-card" onclick="showM(this)">Memory 3 <img src="photo3.jpg"></div>
+            <div class="memory-card" onclick="showM(this)">Memory 4 <img src="photo4.jpg"></div>
+        </div>
+        
+        <div class="shayari-hindi">
+            "खूबसूरत दिन है ये, इस दिन की वजह से आप मेरे पास हैं। <br>
+            चेहरे की मुस्कुराहट बनी रहे आपकी, यही मेरी भगवान से आस है।"
+        </div>
+        
+        <button class="btn-cute" onclick="go(3)">Together Video ⮕</button>
+    </div>
+
+    <div id="p3" class="section">
+        <video id="togetherVid" width="85%" controls style="max-width:350px; border: 6px solid white; border-radius:15px;">
+            <source src="family_video.mp4" type="video/mp4">
+        </video>
+        <div class="lavender-cute">
+            "Beautiful moment that you spent together laughing and you will spend more time together laughing"
+        </div>
+        <button class="btn-cute" onclick="go(4)">Special Note ⮕</button>
+    </div>
+
+    <div id="p4" class="section">
+        <div class="lining-paper">
+            Mamma & Papa<br>
+            Aaj ka ye din bahut khas hai....ye pal jab jab aata ek nayi yaad bana ke jata h meri to bas yhi duaa ke aaj ke is khas din per ki aap dono hmesha khush reh swasth reh salmat reha or sath reh ...wish you a very Beautiful and Sweet Birthday Mamma & Papa!
+        </div>
+        <div onclick="go(5)" class="heart-btn" style="font-size:60px; margin-top:20px;">❤️</div>
+    </div>
+
+    <div id="p5" class="section">
+        <h1 class="thanks-cute">THANKS</h1>
+        <p style="font-size:1.1rem; color:#ff5e78; margin:0;">From your daughters</p>
+        <h2 class="daughters-name">KHUSHI & BITTU</h2>
+        <button class="btn-end" onclick="closeSite()">End (Tap to Close)</button>
+    </div>
+
+    <script>
+        let effect = 'rose'; 
+        const audio = document.getElementById('bgMusic');
+
+        function createFalling(char, color) {
+            const e = document.createElement('div');
+            e.className = 'falling';
+            e.innerHTML = char;
+            e.style.left = Math.random() * 100 + 'vw';
+            e.style.color = color;
+            e.style.fontSize = Math.random() * 15 + 10 + 'px';
+            e.style.animationDuration = Math.random() * 5 + 3 + 's';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 7000);
+        }
+
+        // Petals/Confetti speed control
+        setInterval(() => {
+            if(effect === 'rose') createFalling('🌸', '#ffb7b2');
+            if(effect === 'confetti') createFalling('■', ['#ff4757','#ffd700','#74b9ff'][Math.floor(Math.random()*3)]);
+        }, 300);
+
+      function startSurprise() {
+            // Text aur Heart ko chupane ke liye
+            document.getElementById('instruction-wrap').style.display = 'none';
+            
+            // Wish area dikhane ke liye
+            document.getElementById('wish-area').style.display = 'flex';
+            document.getElementById('wish-area').style.flexDirection = 'column';
+            document.getElementById('wish-area').style.alignItems = 'center';
+            
+            effect = 'confetti'; 
+            
+            // 26th second se gaana shuru
+            audio.currentTime = 26; 
+            audio.play();
+        }
+
+       function go(n) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('p' + n).classList.add('active');
+            
+            const audio = document.getElementById('bgMusic');
+            const vid = document.getElementById('togetherVid');
+
+            if(n === 3) {
+                // Jab video wale page par aayein:
+                audio.pause();       // Background music ko rok do
+                vid.currentTime = 0; // Video shuru se chale
+                vid.muted = false;   // Video mute na rahe
+                vid.volume = 1.0;    // Video ki awaaz full (100%) rahe
+                vid.play();          // Video apne aap chal jaye
+            } else {
+                // Baaki pages par:
+                vid.pause();         // Video ko rok do
+                audio.play();        // Background music chala do
+            }
+
+            // Effects manage karne ke liye
+            if (n === 5 || n === 1 || n === 2 || n === 4) effect = 'rose';
+            else effect = 'none';
+        }
+            // Set Effect based on page
+            if (n === 5 || n === 1) effect = 'rose';
+            else if (n === 2 || n === 4) effect = 'rose'; // Light rose petals everywhere
+            else effect = 'none';
+        }
+
+        function showM(el) { 
+            el.querySelector('img').style.display = 'block'; 
+        }
+
+        function closeSite() {
+            if (confirm("Kya aap website band karna chahte hain?")) {
+                window.close();
+                alert("Aap is tab ko ab band kar sakte hain. Happy Birthday Mummy Papa!");
+            }
+        }
+    </script>
+</body>
+</html>
